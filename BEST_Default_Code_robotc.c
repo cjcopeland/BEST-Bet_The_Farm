@@ -24,13 +24,23 @@ int adjustThrottle(int input) {
 
 task main{
 
-	int Ch1 = 1;
-	int Ch2 = 2;
-	int Ch3 = 3;
-	int Ch4 = 4;
 	while (true) {
-		motor[port2] = adjustThrottle(vexRT[Ch1]);
-		motor[port3] = adjustThrottle(vexRT[Ch2]);
+		motor[port2] = adjustThrottle(vexRT[Ch2]);
+		motor[port3] = adjustThrottle(vexRT[Ch3]);
+
+		if (vexRT[Btn5D] == 1)
+			motor[port8] = 127;
+		else if (vexRT[Btn6D] == 1)
+			motor[port8] = -127;
+		if (vexRT[Btn5D] == 0 && vexRT[Btn6D] == 0)
+			motor[port8] = 0;
+
+		if (vexRT[Btn5U] == 1)
+			motor[port9] = 127;
+		else if (vexRT[Btn6U] == 1)
+			motor[port9] = -127;
+		if (vexRT[Btn5U] == 0 && vexRT[Btn6U] == 0)
+			motor[port9] = 0;
 
 	} //wend
 }
