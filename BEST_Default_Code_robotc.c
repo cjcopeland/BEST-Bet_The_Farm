@@ -1,5 +1,7 @@
 #pragma config(Sensor, in2,    armPot,         sensorPotentiometer)
 #pragma config(Sensor, in7,    scoopPot,       sensorPotentiometer)
+#pragma config(Sensor, dgtl8,  upperLimit,     sensorTouch)
+#pragma config(Sensor, dgtl10, lowerLimit,     sensorTouch)
 #pragma config(Motor,  port2,           rightMotor,    tmotorServoContinuousRotation, openLoop, driveRight)
 #pragma config(Motor,  port3,           leftMotor,     tmotorServoContinuousRotation, openLoop, reversed, driveLeft)
 #pragma config(Motor,  port6,           seedDoorServo, tmotorServoStandard, openLoop)
@@ -23,7 +25,7 @@ int adjustThrottle(int input) {
 }
 
 task main{
-
+	bool closeServo = true;
 	while (true) {
 		motor[port2] = adjustThrottle(vexRT[Ch2]);
 		motor[port3] = adjustThrottle(vexRT[Ch3]);
@@ -35,12 +37,28 @@ task main{
 		if (vexRT[Btn5D] == 0 && vexRT[Btn6D] == 0)
 			motor[port8] = 0;
 
-		if (vexRT[Btn5U] == 1)
+		if (vexRT[Btn5U] == 1 && !SensorBoolean[dgtl8])
 			motor[port9] = 127;
-		else if (vexRT[Btn6U] == 1)
+		else if (vexRT[Btn6U] == 1 && !SensorBoolean[dgtl10])
 			motor[port9] = -127;
 		if (vexRT[Btn5U] == 0 && vexRT[Btn6U] == 0)
 			motor[port9] = 0;
 
+		if (vexRT[Btn8U] == 1)
+			closeServo = false;
+		if (vexRT[Btn8D] == 1)
+			closeServo = true;
+		if (closeServo == true)
+			motor[port6] = 0;
+		else
+			motor[port6] = 127;
 	} //wend
+
+
+
+
+
+
+
+
 }
