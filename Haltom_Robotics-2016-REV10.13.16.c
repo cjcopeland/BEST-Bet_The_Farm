@@ -21,7 +21,7 @@ int zeroThrottle = 0;
 int servoMinPos = -127;
 int servoMaxPos = 80;
 //end Global variables
-
+// I added this code!
 //begin adjustThrottle function
 //DESCRIPTION: 	take input from the VEX joystick and adjust it such that up to 85% throttle follows a squared input curve.
 //							Above 85% input will be pushed to max throttle.  Below 5% throttle will be considered zero throttle.
